@@ -1,0 +1,18 @@
+package main
+
+import (
+	"strings"
+	"testing"
+)
+
+func FuzzVulnerableHandler(f *testing.F) {
+	f.Add("fuzzing_input")
+	f.Fuzz(func(t *testing.T, input string) {
+		buffer := make([]byte, 1024)
+		copy(buffer, input)
+
+		if strings.Contains(string(buffer), "fuzz") {
+			t.Error("¡Vulnerabilidad encontrada!")
+		}
+	})
+}
