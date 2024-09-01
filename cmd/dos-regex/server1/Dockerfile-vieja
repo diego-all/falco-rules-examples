@@ -1,0 +1,14 @@
+# Usamos una imagen base mínima de Go
+FROM golang:1.20-alpine
+
+# Configuramos el directorio de trabajo dentro del contenedor
+WORKDIR /app
+
+# Copiamos solo el archivo main.go al contenedor
+COPY main.go .
+
+# Compilamos la aplicación Go
+RUN go mod init example.com/myapi && go mod tidy && go build -o api main.go
+
+# Comando para ejecutar la API
+CMD ["./api"]
